@@ -1,8 +1,11 @@
 #include "Game.h"
 #include "TextureManager.h"
+#include "GameObject.h"
 
-SDL_Texture* playerTex;
-SDL_Rect srcR, dstR;
+GameObject* player;
+GameObject* enemy;
+// SDL_Texture* playerTex;
+// SDL_Rect srcR, dstR;
 
 Game::Game()
 {}
@@ -26,13 +29,15 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
         
         renderer = SDL_CreateRenderer(window, -1, 0);
         if(renderer) {
-            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+            SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
             std::cout << "Renderer Created!" << std::endl;
         }
         
         isRunning = true;
         
-        playerTex = TextureManager::LoadTexture("../../../Assets/man.bmp", renderer);
+        player = new GameObject("../../../Assets/man1.bmp", renderer, 0, 0);
+//      playerTex = TextureManager::LoadTexture("../../../Assets/man.bmp", renderer);
+        enemy = new GameObject("../../../Assets/man2.bmp", renderer, 50, 50);
 
         std::cout << SDL_GetError() << std::endl;
         
@@ -58,17 +63,23 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-    cnt++;
-    dstR.h = 64;
-    dstR.w = 64;
-    dstR.x = cnt;
-    std::cout << cnt << std::endl;
+    player->Update();
+    enemy->Update();
+//    cnt++;
+//    dstR.h = 64;
+//    dstR.w = 64;
+//    dstR.x = cnt;
+//    std::cout << cnt << std::endl;
 }
 
 void Game::render() {
     SDL_RenderClear(renderer);
-    SDL_RenderCopy(renderer, playerTex, NULL, &dstR);
+    player->Render();
+    enemy->Render();
     SDL_RenderPresent(renderer);
+//    SDL_RenderClear(renderer);
+//    SDL_RenderCopy(renderer, playerTex, NULL, &dstR);
+//    SDL_RenderPresent(renderer);
 }
 
 void Game::clean() {
