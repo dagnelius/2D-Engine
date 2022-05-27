@@ -17,6 +17,8 @@ public:
     void update();
     void render();
     void clean();
+    
+    static SDL_Renderer *renderer;
 
     bool running() { return isRunning; }
 
@@ -24,8 +26,6 @@ private:
     int cnt;
     bool isRunning;
     SDL_Window *window;
-    SDL_Renderer *renderer;
-
 };
 
 #endif /* Game_hpp */

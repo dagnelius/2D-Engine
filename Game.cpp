@@ -6,6 +6,7 @@ GameObject* player;
 GameObject* enemy;
 // SDL_Texture* playerTex;
 // SDL_Rect srcR, dstR;
+SDL_Renderer* Game::renderer = nullptr;
 
 Game::Game()
 {}
@@ -35,9 +36,8 @@ void Game::init(const char *title, int xpos, int ypos, int width, int height, bo
         
         isRunning = true;
         
-        player = new GameObject("../../../Assets/man1.bmp", renderer, 0, 0);
-//      playerTex = TextureManager::LoadTexture("../../../Assets/man.bmp", renderer);
-        enemy = new GameObject("../../../Assets/man2.bmp", renderer, 50, 50);
+        player = new GameObject("../../../Assets/man1.bmp", 0, 0);
+        enemy = new GameObject("../../../Assets/man2.bmp", 50, 50);
 
         std::cout << SDL_GetError() << std::endl;
         
